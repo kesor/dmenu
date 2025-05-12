@@ -1,0 +1,27 @@
+Index: dmenu-quilt/config.def.h
+===================================================================
+--- dmenu-quilt.orig/config.def.h
++++ dmenu-quilt/config.def.h
+@@ -3,6 +3,8 @@
+ 
+ static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
+ /* -fn option overrides fonts[0]; default X11 font or font set */
++static const int user_bh = 1;               /* add an defined amount of pixels to the bar height */
++
+ static const char *fonts[] = {
+ 	"JetBrainsMono Nerd Font Mono:size=12:antialias=true:autohint=true"
+ };
+Index: dmenu-quilt/dmenu.c
+===================================================================
+--- dmenu-quilt.orig/dmenu.c
++++ dmenu-quilt/dmenu.c
+@@ -675,7 +675,8 @@ setup(void)
+ 	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
+ 
+ 	/* calculate menu geometry */
+-	bh = drw->fonts->h + 2;
++	bh = drw->fonts->h;
++	bh = user_bh ? bh + user_bh : bh + 2;
+ 	lines = MAX(lines, 0);
+ 	mh = (lines + 1) * bh;
+ #ifdef XINERAMA

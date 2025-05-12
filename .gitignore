@@ -1,0 +1,6 @@
+.pc/
+dmenu
+config.h
+*.o
+dmenu-*.tar.gz
+patches/*~

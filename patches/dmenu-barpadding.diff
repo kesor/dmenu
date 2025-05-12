@@ -1,0 +1,43 @@
+Index: dmenu-quilt/config.def.h
+===================================================================
+--- dmenu-quilt.orig/config.def.h
++++ dmenu-quilt/config.def.h
+@@ -4,6 +4,8 @@
+ static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
+ /* -fn option overrides fonts[0]; default X11 font or font set */
+ static const int user_bh = 1;               /* add an defined amount of pixels to the bar height */
++static const int vertgap = 10;              /* space from top of screen */
++static const int horizgap = 10;             /* space from top of screen */
+ 
+ static const char *fonts[] = {
+ 	"JetBrainsMono Nerd Font Mono:size=12:antialias=true:autohint=true"
+Index: dmenu-quilt/dmenu.c
+===================================================================
+--- dmenu-quilt.orig/dmenu.c
++++ dmenu-quilt/dmenu.c
+@@ -705,9 +705,9 @@ setup(void)
+ 				if (INTERSECT(x, y, 1, 1, info[i]) != 0)
+ 					break;
+ 
+-		x = info[i].x_org;
+-		y = info[i].y_org + (topbar ? 0 : info[i].height - mh);
+-		mw = info[i].width;
++		x = info[i].x_org + horizgap;
++		y = info[i].y_org + (topbar ? 0 : info[i].height - mh) + vertgap;
++		mw = info[i].width - 2*horizgap;
+ 		XFree(info);
+ 	} else
+ #endif
+@@ -715,9 +715,9 @@ setup(void)
+ 		if (!XGetWindowAttributes(dpy, parentwin, &wa))
+ 			die("could not get embedding window attributes: 0x%lx",
+ 			    parentwin);
+-		x = 0;
+-		y = topbar ? 0 : wa.height - mh;
+-		mw = wa.width;
++		x = horizgap;
++		y = topbar ? vertgap : wa.height - mh + vertgap;
++		mw = wa.width - 2*horizgap;
+ 	}
+ 	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
+ 	inputw = mw / 3; /* input width: ~33% of monitor width */
