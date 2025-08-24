@@ -1,7 +1,5 @@
-Index: dmenu-quilt/config.def.h
-===================================================================
---- dmenu-quilt.orig/config.def.h
-+++ dmenu-quilt/config.def.h
+--- a/config.def.h
++++ b/config.def.h
 @@ -3,6 +3,8 @@
  
  static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
@@ -11,10 +9,8 @@ Index: dmenu-quilt/config.def.h
  static const char *fonts[] = {
  	"JetBrainsMono Nerd Font Mono:size=12:antialias=true:autohint=true"
  };
-Index: dmenu-quilt/dmenu.c
-===================================================================
---- dmenu-quilt.orig/dmenu.c
-+++ dmenu-quilt/dmenu.c
+--- a/dmenu.c
++++ b/dmenu.c
 @@ -675,7 +675,8 @@ setup(void)
  	utf8 = XInternAtom(dpy, "UTF8_STRING", False);
  

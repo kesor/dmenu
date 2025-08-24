@@ -9,10 +9,8 @@ Subject: [PATCH] Adds the fuzzyhighlight patch
  dmenu.c      | 57 +++++++++++++++++++++++++++++++++++++++++++++++++---
  3 files changed, 76 insertions(+), 3 deletions(-)
 
-Index: dmenu-quilt/config.def.h
-===================================================================
---- dmenu-quilt.orig/config.def.h
-+++ dmenu-quilt/config.def.h
+--- a/config.def.h
++++ b/config.def.h
 @@ -19,6 +19,8 @@ static const char *colors[SchemeLast][2]
  				/*     fg         bg       */
  	[SchemeNorm] = { normfgcolor, normbgcolor },
@@ -22,10 +20,8 @@ Index: dmenu-quilt/config.def.h
  	[SchemeOut]  = { outfgcolor,  outbgcolor },
  };
  /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
-Index: dmenu-quilt/dmenu.1
-===================================================================
---- dmenu-quilt.orig/dmenu.1
-+++ dmenu-quilt/dmenu.1
+--- a/dmenu.1
++++ b/dmenu.1
 @@ -20,6 +20,14 @@ dmenu \- dynamic menu
  .IR color ]
  .RB [ \-sf
@@ -60,10 +56,8 @@ Index: dmenu-quilt/dmenu.1
  .B \-v
  prints version information to stdout, then exits.
  .TP
-Index: dmenu-quilt/dmenu.c
-===================================================================
---- dmenu-quilt.orig/dmenu.c
-+++ dmenu-quilt/dmenu.c
+--- a/dmenu.c
++++ b/dmenu.c
 @@ -25,7 +25,9 @@
  #define TEXTW(X)              (drw_fontset_getwidth(drw, (X)) + lrpad)
  
@@ -134,7 +128,7 @@ Index: dmenu-quilt/dmenu.c
  }
  
  static void
-@@ -716,7 +758,8 @@ static void
+@@ -715,7 +757,8 @@ static void
  usage(void)
  {
  	die("usage: dmenu [-bfiv] [-l lines] [-p prompt] [-fn font] [-m monitor]\n"
@@ -144,7 +138,7 @@ Index: dmenu-quilt/dmenu.c
  }
  
  int
-@@ -756,6 +799,14 @@ main(int argc, char *argv[])
+@@ -755,6 +798,14 @@ main(int argc, char *argv[])
  			colors[SchemeSel][ColBg] = argv[++i];
  		else if (!strcmp(argv[i], "-sf"))  /* selected foreground color */
  			colors[SchemeSel][ColFg] = argv[++i];
