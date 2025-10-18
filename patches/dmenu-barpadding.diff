@@ -1,14 +1,49 @@
 --- a/config.def.h
 +++ b/config.def.h
-@@ -4,6 +4,8 @@
+@@ -3,12 +3,14 @@
+ 
  static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
  /* -fn option overrides fonts[0]; default X11 font or font set */
- static const int user_bh = 1;               /* add an defined amount of pixels to the bar height */
+-static const int user_bh = 1;               /* add an defined amount of pixels to the bar height */
++static const int user_bh = 2;               /* add an defined amount of pixels to the bar height */
 +static const int vertgap = 2;              /* space from top of screen */
 +static const int horizgap = 2;             /* space from top of screen */
  
  static const char *fonts[] = {
-   "JetBrains Mono:size=12:antialias=true:autohint=true"
+-  "JetBrains Mono:size=12:antialias=true:autohint=true"
++  "Noto Sans Mono:size=12:antialias=true:autohint=true"
+ };
+-static const char *prompt      = NULL;      /* -p  option; prompt to the left of input field */
++static const char *prompt      = "› ";      /* -p  option; prompt to the left of input field */
+ 
+ static char normbgcolor[]           = "#010203";
+ static char normfgcolor[]           = "#ccccff";
+@@ -17,13 +19,19 @@ static char selbgcolor[]            = "#
+ static char outfgcolor[]            = "#ccccff";
+ static char outbgcolor[]            = "#010203";
+ 
++static const char cat_base[]        = "#1e1e2e"; // catppuccin mocha base
++static const char cat_surface1[]    = "#45475a"; // catppuccin mocha surface1
++static const char cat_mantle[]      = "#181825"; // catppuccin mocha mantle
++static const char cat_blue[]        = "#89b4fa"; // catppuccin mocha blue
++
++
+ static const char *colors[SchemeLast][2] = {
+-				/*     fg         bg       */
+-	[SchemeNorm] = { normfgcolor, normbgcolor },
+-	[SchemeSel]  = { selfgcolor,  selbgcolor  },
+-	[SchemeSelHighlight] = { "#ffc978", "#005577" },
+-	[SchemeNormHighlight] = { "#ffc978", "#222222" },
+-	[SchemeOut]  = { outfgcolor,  outbgcolor },
++	/*                       fg             bg       */
++	[SchemeNorm] =          { cat_surface1, cat_mantle },
++	[SchemeSel]  =          { cat_blue,     cat_base  },
++	[SchemeSelHighlight] =  { "#000000",    cat_blue },
++	[SchemeNormHighlight] = { "#000000",    cat_surface1 },
++	[SchemeOut]  =          { outfgcolor,   outbgcolor },
+ };
+ /* -l option; if nonzero, dmenu uses vertical list with given number of lines */
+ static unsigned int lines      = 0;
 --- a/dmenu.c
 +++ b/dmenu.c
 @@ -705,9 +705,9 @@ setup(void)
