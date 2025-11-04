@@ -35,5 +35,5 @@ git push kesor master-patched
 
 # Update packages with new commit hash
 git rev-parse HEAD
-nix-prefetch-url --unpack https://github.com/kesor/dmenu/archive/COMMIT_HASH.tar.gz
+nix-shell -p nix-prefetch-github --run "nix-prefetch-github kesor dmenu --rev COMMIT_HASH"
 ```
