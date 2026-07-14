@@ -1,13 +1,14 @@
 --- a/config.def.h
 +++ b/config.def.h
-@@ -3,12 +3,14 @@
+@@ -3,12 +3,15 @@
  
  static int topbar = 1;                      /* -b  option; if 0, dmenu appears at bottom     */
  /* -fn option overrides fonts[0]; default X11 font or font set */
 -static const int user_bh = 1;               /* add an defined amount of pixels to the bar height */
 +static const int user_bh = 2;               /* add an defined amount of pixels to the bar height */
 +static const int vertgap = 2;              /* space from top of screen */
-+static const int horizgap = 2;             /* space from top of screen */
++static const int horizgap = 2;             /* space from sides of screen */
++static const int horizpadbar = 2;          /* inner horizontal text pad (match dwm horizpadbar) */
  
  static const char *fonts[] = {
 -  "JetBrains Mono:size=12:antialias=true:autohint=true"
@@ -18,7 +19,7 @@
  
  static char normbgcolor[]           = "#010203";
  static char normfgcolor[]           = "#ccccff";
-@@ -17,13 +19,19 @@ static char selbgcolor[]            = "#
+@@ -17,13 +20,19 @@ static char selbgcolor[]            = "#
  static char outfgcolor[]            = "#ccccff";
  static char outbgcolor[]            = "#010203";
  
@@ -72,3 +73,12 @@
  	}
  	promptw = (prompt && *prompt) ? TEXTW(prompt) - lrpad / 4 : 0;
  	inputw = mw / 3; /* input width: ~33% of monitor width */
+@@ -826,7 +826,7 @@ main(int argc, char *argv[])
+ 	drw = drw_create(dpy, screen, root, wa.width, wa.height);
+ 	if (!drw_fontset_create(drw, fonts, LENGTH(fonts)))
+ 		die("no fonts could be loaded.");
+-	lrpad = drw->fonts->h;
++	lrpad = drw->fonts->h + horizpadbar;
+ 
+ #ifdef __OpenBSD__
+ 	if (pledge("stdio rpath", NULL) == -1)
